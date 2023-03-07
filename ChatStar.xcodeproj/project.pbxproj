@@ -56,15 +56,39 @@
 		F897390829B727BA003D757B /* ChatStar */ = {
 			isa = PBXGroup;
 			children = (
+				F897391D29B7283F003D757B /* Model */,
+				F897391E29B7284A003D757B /* View */,
+				F897391F29B7284E003D757B /* Controller */,
 				F897390929B727BA003D757B /* AppDelegate.swift */,
 				F897390B29B727BA003D757B /* SceneDelegate.swift */,
-				F897390D29B727BA003D757B /* ViewController.swift */,
-				F897390F29B727BA003D757B /* Main.storyboard */,
 				F897391229B727BC003D757B /* Assets.xcassets */,
-				F897391429B727BC003D757B /* LaunchScreen.storyboard */,
 				F897391729B727BC003D757B /* Info.plist */,
 			);
 			path = ChatStar;
+			sourceTree = "<group>";
+		};
+		F897391D29B7283F003D757B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F897391E29B7284A003D757B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F897390F29B727BA003D757B /* Main.storyboard */,
+				F897391429B727BC003D757B /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F897391F29B7284E003D757B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F897390D29B727BA003D757B /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
