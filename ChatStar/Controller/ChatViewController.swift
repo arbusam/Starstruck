@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import MessageKit
 
-class ViewController: UIViewController {
+class ChatViewController: MessagesViewController {
+    let apiManager = APIManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        apiManager.chat(with: "Steve Jobs", message: "What is your perspective on Google Pixel phones?")
     }
 
 
