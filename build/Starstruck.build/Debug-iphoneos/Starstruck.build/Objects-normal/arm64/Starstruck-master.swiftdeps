@@ -1,0 +1,12 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "091d8ded7686aa6a3a2186b947a8ff2e4c1b3eeb5584d1da328bb4f533022236"
+build_start_time: [1678354206, 515884876]
+build_end_time: [1678354206, 572585105]
+inputs:
+  "/Users/arhanbusam/Library/Mobile Documents/com~apple~CloudDocs/Xcode/Starstruck/Starstruck/AppDelegate.swift": !private [1678353533, 913016796]
+  "/Users/arhanbusam/Library/Mobile Documents/com~apple~CloudDocs/Xcode/Starstruck/Starstruck/Controller/ChatViewController.swift": !private [1678350082, 435605525]
+  ? "/Users/arhanbusam/Library/Mobile Documents/com~apple~CloudDocs/Xcode/Starstruck/Starstruck/Controller/SelectStarViewController.swift"
+  : !private [1678354206, 356047630]
+  "/Users/arhanbusam/Library/Mobile Documents/com~apple~CloudDocs/Xcode/Starstruck/Starstruck/Model/APIManager.swift": !private [1678349281, 335861682]
+  "/Users/arhanbusam/Library/Mobile Documents/com~apple~CloudDocs/Xcode/Starstruck/Starstruck/Model/ChatResponse.swift": !private [1678255550, 63979148]
+  "/Users/arhanbusam/Library/Mobile Documents/com~apple~CloudDocs/Xcode/Starstruck/Starstruck/SceneDelegate.swift": !private [1678176314, 783407211]

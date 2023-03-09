@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E39E92A8008C7E8F0B6F4ACD /* Pods_Starstruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E760F8EC1A3CEAE98868060 /* Pods_Starstruck.framework */; };
+		F811CEFF29B9DBCE001A7B5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */; };
+		F811CF1329B9DC1C001A7B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F811CF1229B9DC1C001A7B5C /* Assets.xcassets */; };
+		F811CF1529B9DC2A001A7B5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */; };
+		F811CF2129B9DC34001A7B5C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1729B9DC34001A7B5C /* ChatViewController.swift */; };
+		F811CF2229B9DC34001A7B5C /* SelectStarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1829B9DC34001A7B5C /* SelectStarViewController.swift */; };
+		F811CF2329B9DC34001A7B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F811CF1A29B9DC34001A7B5C /* LaunchScreen.storyboard */; };
+		F811CF2529B9DC34001A7B5C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1F29B9DC34001A7B5C /* APIManager.swift */; };
+		F811CF2629B9DC34001A7B5C /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF2029B9DC34001A7B5C /* ChatResponse.swift */; };
+		F8199CC129B9DE6000DFF9BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8199CBF29B9DE6000DFF9BB /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		42450E1826DD5934B2A15298 /* Pods-Starstruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Starstruck.debug.xcconfig"; path = "Target Support Files/Pods-Starstruck/Pods-Starstruck.debug.xcconfig"; sourceTree = "<group>"; };
+		79FE69432930476364119DDD /* Pods-Starstruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Starstruck.release.xcconfig"; path = "Target Support Files/Pods-Starstruck/Pods-Starstruck.release.xcconfig"; sourceTree = "<group>"; };
+		7E760F8EC1A3CEAE98868060 /* Pods_Starstruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Starstruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F811CEFB29B9DBCE001A7B5C /* Starstruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starstruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F811CF0C29B9DBD0001A7B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F811CF1229B9DC1C001A7B5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../Starstruck—old/Starstruck/Assets.xcassets"; sourceTree = "<group>"; };
+		F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F811CF1729B9DC34001A7B5C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		F811CF1829B9DC34001A7B5C /* SelectStarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectStarViewController.swift; sourceTree = "<group>"; };
+		F811CF1B29B9DC34001A7B5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F811CF1F29B9DC34001A7B5C /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		F811CF2029B9DC34001A7B5C /* ChatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
+		F8199CC029B9DE6000DFF9BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F811CEF829B9DBCE001A7B5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E39E92A8008C7E8F0B6F4ACD /* Pods_Starstruck.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		24262FA9C4563E20C3DBFAB2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E760F8EC1A3CEAE98868060 /* Pods_Starstruck.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53DD61C092F4135AF5EF314B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42450E1826DD5934B2A15298 /* Pods-Starstruck.debug.xcconfig */,
+				79FE69432930476364119DDD /* Pods-Starstruck.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F811CEF229B9DBCE001A7B5C = {
+			isa = PBXGroup;
+			children = (
+				F811CEFD29B9DBCE001A7B5C /* Starstruck */,
+				F811CEFC29B9DBCE001A7B5C /* Products */,
+				53DD61C092F4135AF5EF314B /* Pods */,
+				24262FA9C4563E20C3DBFAB2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F811CEFC29B9DBCE001A7B5C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F811CEFB29B9DBCE001A7B5C /* Starstruck.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F811CEFD29B9DBCE001A7B5C /* Starstruck */ = {
+			isa = PBXGroup;
+			children = (
+				F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */,
+				F811CF0C29B9DBD0001A7B5C /* Info.plist */,
+				F811CF1229B9DC1C001A7B5C /* Assets.xcassets */,
+				F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */,
+				F811CF1E29B9DC34001A7B5C /* Model */,
+				F811CF1929B9DC34001A7B5C /* View */,
+				F811CF1629B9DC34001A7B5C /* Controller */,
+			);
+			path = Starstruck;
+			sourceTree = "<group>";
+		};
+		F811CF1629B9DC34001A7B5C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F811CF1729B9DC34001A7B5C /* ChatViewController.swift */,
+				F811CF1829B9DC34001A7B5C /* SelectStarViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F811CF1929B9DC34001A7B5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F8199CBF29B9DE6000DFF9BB /* Main.storyboard */,
+				F811CF1A29B9DC34001A7B5C /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F811CF1E29B9DC34001A7B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F811CF1F29B9DC34001A7B5C /* APIManager.swift */,
+				F811CF2029B9DC34001A7B5C /* ChatResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F811CEFA29B9DBCE001A7B5C /* Starstruck */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F811CF0F29B9DBD0001A7B5C /* Build configuration list for PBXNativeTarget "Starstruck" */;
+			buildPhases = (
+				8B8408A4B630332DB9A2483A /* [CP] Check Pods Manifest.lock */,
+				F811CEF729B9DBCE001A7B5C /* Sources */,
+				F811CEF829B9DBCE001A7B5C /* Frameworks */,
+				F811CEF929B9DBCE001A7B5C /* Resources */,
+				CB6A28CA6756108FEBDA0099 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Starstruck;
+			productName = Starstruck;
+			productReference = F811CEFB29B9DBCE001A7B5C /* Starstruck.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F811CEF329B9DBCE001A7B5C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					F811CEFA29B9DBCE001A7B5C = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = F811CEF629B9DBCE001A7B5C /* Build configuration list for PBXProject "Starstruck" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F811CEF229B9DBCE001A7B5C;
+			productRefGroup = F811CEFC29B9DBCE001A7B5C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F811CEFA29B9DBCE001A7B5C /* Starstruck */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F811CEF929B9DBCE001A7B5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F811CF2329B9DC34001A7B5C /* LaunchScreen.storyboard in Resources */,
+				F811CF1329B9DC1C001A7B5C /* Assets.xcassets in Resources */,
+				F8199CC129B9DE6000DFF9BB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8B8408A4B630332DB9A2483A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Starstruck-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB6A28CA6756108FEBDA0099 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Starstruck/Pods-Starstruck-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Starstruck/Pods-Starstruck-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Starstruck/Pods-Starstruck-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F811CEF729B9DBCE001A7B5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F811CEFF29B9DBCE001A7B5C /* AppDelegate.swift in Sources */,
+				F811CF2129B9DC34001A7B5C /* ChatViewController.swift in Sources */,
+				F811CF2629B9DC34001A7B5C /* ChatResponse.swift in Sources */,
+				F811CF2529B9DC34001A7B5C /* APIManager.swift in Sources */,
+				F811CF2229B9DC34001A7B5C /* SelectStarViewController.swift in Sources */,
+				F811CF1529B9DC2A001A7B5C /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F811CF1A29B9DC34001A7B5C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F811CF1B29B9DC34001A7B5C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F8199CBF29B9DE6000DFF9BB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8199CC029B9DE6000DFF9BB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F811CF0D29B9DBD0001A7B5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F811CF0E29B9DBD0001A7B5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F811CF1029B9DBD0001A7B5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42450E1826DD5934B2A15298 /* Pods-Starstruck.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A6586955H9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Starstruck/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arhanbusam.Starstruck;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F811CF1129B9DBD0001A7B5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79FE69432930476364119DDD /* Pods-Starstruck.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A6586955H9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Starstruck/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arhanbusam.Starstruck;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F811CEF629B9DBCE001A7B5C /* Build configuration list for PBXProject "Starstruck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F811CF0D29B9DBD0001A7B5C /* Debug */,
+				F811CF0E29B9DBD0001A7B5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F811CF0F29B9DBD0001A7B5C /* Build configuration list for PBXNativeTarget "Starstruck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F811CF1029B9DBD0001A7B5C /* Debug */,
+				F811CF1129B9DBD0001A7B5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F811CEF329B9DBCE001A7B5C /* Project object */;
+}
