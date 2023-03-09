@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E39E92A8008C7E8F0B6F4ACD /* Pods_Starstruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E760F8EC1A3CEAE98868060 /* Pods_Starstruck.framework */; };
 		F811CEFF29B9DBCE001A7B5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */; };
-		F811CF1329B9DC1C001A7B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F811CF1229B9DC1C001A7B5C /* Assets.xcassets */; };
 		F811CF1529B9DC2A001A7B5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */; };
 		F811CF2129B9DC34001A7B5C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1729B9DC34001A7B5C /* ChatViewController.swift */; };
 		F811CF2229B9DC34001A7B5C /* SelectStarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1829B9DC34001A7B5C /* SelectStarViewController.swift */; };
@@ -17,6 +16,7 @@
 		F811CF2529B9DC34001A7B5C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF1F29B9DC34001A7B5C /* APIManager.swift */; };
 		F811CF2629B9DC34001A7B5C /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811CF2029B9DC34001A7B5C /* ChatResponse.swift */; };
 		F8199CC129B9DE6000DFF9BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8199CBF29B9DE6000DFF9BB /* Main.storyboard */; };
+		F830368929B9E1780025E2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F830368829B9E1780025E2DD /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,6 @@
 		F811CEFB29B9DBCE001A7B5C /* Starstruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starstruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F811CF0C29B9DBD0001A7B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F811CF1229B9DC1C001A7B5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../Starstruck—old/Starstruck/Assets.xcassets"; sourceTree = "<group>"; };
 		F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F811CF1729B9DC34001A7B5C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		F811CF1829B9DC34001A7B5C /* SelectStarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectStarViewController.swift; sourceTree = "<group>"; };
@@ -34,6 +33,7 @@
 		F811CF1F29B9DC34001A7B5C /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		F811CF2029B9DC34001A7B5C /* ChatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
 		F8199CC029B9DE6000DFF9BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F830368829B9E1780025E2DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,11 +88,11 @@
 			children = (
 				F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */,
 				F811CF0C29B9DBD0001A7B5C /* Info.plist */,
-				F811CF1229B9DC1C001A7B5C /* Assets.xcassets */,
 				F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */,
 				F811CF1E29B9DC34001A7B5C /* Model */,
 				F811CF1929B9DC34001A7B5C /* View */,
 				F811CF1629B9DC34001A7B5C /* Controller */,
+				F830368829B9E1780025E2DD /* Assets.xcassets */,
 			);
 			path = Starstruck;
 			sourceTree = "<group>";
@@ -185,8 +185,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F811CF2329B9DC34001A7B5C /* LaunchScreen.storyboard in Resources */,
-				F811CF1329B9DC1C001A7B5C /* Assets.xcassets in Resources */,
 				F8199CC129B9DE6000DFF9BB /* Main.storyboard in Resources */,
+				F830368929B9E1780025E2DD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
