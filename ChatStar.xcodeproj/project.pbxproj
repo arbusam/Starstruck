@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2806E1112E285440A6E1F0B9 /* Pods_ChatStar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041A91F2B9F9F8323CF57ECC /* Pods_ChatStar.framework */; };
+		F80DA0B529B86D8A006DAB29 /* SelectStarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80DA0B429B86D8A006DAB29 /* SelectStarViewController.swift */; };
 		F88380E129B85CE900CE9AC2 /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88380E029B85CE900CE9AC2 /* ChatResponse.swift */; };
 		F897390A29B727BA003D757B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897390929B727BA003D757B /* AppDelegate.swift */; };
 		F897390C29B727BA003D757B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897390B29B727BA003D757B /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 		041A91F2B9F9F8323CF57ECC /* Pods_ChatStar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatStar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10E8F238CF87C7C2A436AAB5 /* Pods-ChatStar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatStar.release.xcconfig"; path = "Target Support Files/Pods-ChatStar/Pods-ChatStar.release.xcconfig"; sourceTree = "<group>"; };
 		934670645CFFC038A423B4AC /* Pods-ChatStar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatStar.debug.xcconfig"; path = "Target Support Files/Pods-ChatStar/Pods-ChatStar.debug.xcconfig"; sourceTree = "<group>"; };
+		F80DA0B429B86D8A006DAB29 /* SelectStarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStarViewController.swift; sourceTree = "<group>"; };
 		F88380E029B85CE900CE9AC2 /* ChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
 		F897390629B727BA003D757B /* ChatStar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatStar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F897390929B727BA003D757B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				F897390D29B727BA003D757B /* ChatViewController.swift */,
+				F80DA0B429B86D8A006DAB29 /* SelectStarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			files = (
 				F88380E129B85CE900CE9AC2 /* ChatResponse.swift in Sources */,
 				F897392129B728CB003D757B /* APIManager.swift in Sources */,
+				F80DA0B529B86D8A006DAB29 /* SelectStarViewController.swift in Sources */,
 				F897390E29B727BA003D757B /* ChatViewController.swift in Sources */,
 				F897390A29B727BA003D757B /* AppDelegate.swift in Sources */,
 				F897390C29B727BA003D757B /* SceneDelegate.swift in Sources */,
