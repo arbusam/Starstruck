@@ -9,6 +9,10 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 
+// Globals
+let sender = Sender(senderId: "self", displayName: "You")
+var messages =  [MessageType]()
+
 class ChatViewController: MessagesViewController {
     let apiManager = APIManager()
     var currentBotName = ""
@@ -23,7 +27,7 @@ class ChatViewController: MessagesViewController {
         if let bot = chatBot {
             if messages.isEmpty || messages[0].sender.senderId != bot.senderId {
                 messages.removeAll()
-                messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello, I'm \(currentBotName). How can I help you?")))
+                messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date(), kind: .text("Hello, I'm \(currentBotName). How can I help you?")))
             }
         } else {
             print("Chat bot does not exist")
@@ -60,12 +64,7 @@ struct MyMessage: MessageType {
     var kind: MessageKit.MessageKind
 }
 
-// Some global variables for the sake of the example. Using globals is not recommended!
-let sender = Sender(senderId: "self", displayName: "You")
-var messages =  [MessageType]()
-
 extension ChatViewController: MessagesDataSource {
-    
     func currentSender() -> MessageKit.SenderType {
         return sender
     }
@@ -77,6 +76,20 @@ extension ChatViewController: MessagesDataSource {
 
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         return messages[indexPath.section]
+    }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        if message.sender.senderId == currentSender().senderId {
+            let image: UIImage? = UIImage(systemName: "person.circle")?.withConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)))
+            avatarView.set(avatar: Avatar(image: image))
+            avatarView.backgroundColor = .clear
+        } else if message.sender.senderId == chatBot?.senderId {
+            avatarView.set(avatar: Avatar(image: UIImage(imageLiteralResourceName: "botSymbol")))
+            avatarView.backgroundColor = UIColor.white
+            avatarView.tintColor = UIColor.white
+        } else {
+            print("Sender ID does not match when looking for avatar")
+        }
     }
     
 }
@@ -129,4 +142,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
 }
 
-extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {}
+extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return message.sender.senderId == currentSender().senderId ? UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1) : UIColor(red: 230/255, green: 230/255, blue: 232/255, alpha: 1)
+    }
+}

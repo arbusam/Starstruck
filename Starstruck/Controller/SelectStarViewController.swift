@@ -37,7 +37,7 @@ class SelectStarViewController: UIViewController, UITableViewDelegate, UITableVi
         // Show chat
         let vc = ChatViewController()
         vc.currentBotName = stars[indexPath.row]
-        vc.title = stars[indexPath.row]
+        vc.title = stars[indexPath.row] + " Bot"
         navigationController?.pushViewController(vc, animated: true)
     }
 }

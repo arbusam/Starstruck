@@ -40,11 +40,14 @@ struct APIManager {
         // Set the headers you want to pass, which are "Authorization" and "Content-Type"
         request.setValue("Bearer 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", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let userID = UIDevice.current.identifierForVendor!.uuidString
 
         // Set the data you want to pass, which is the JSON object with the "model" and "messages" keys
         let parameters: [String: Any] = [
             "model": "gpt-3.5-turbo",
-            "messages": textMessages
+            "messages": textMessages,
+            "user": userID
         ]
 
         // Encode the parameters as JSON data and assign it to the httpBody property
