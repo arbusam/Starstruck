@@ -13,14 +13,25 @@ import InputBarAccessoryView
 let sender = Sender(senderId: "self", displayName: "You")
 var messages =  [MessageType]()
 
+var alertShown = UserDefaults.standard.bool(forKey: "alertShown")
+
 class ChatViewController: MessagesViewController {
     let apiManager = APIManager()
     var currentBotName = ""
     
     var chatBot: Sender? = nil
+    
+    let botAlert = BotAlert()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !alertShown {
+            //show alert
+            botAlert.showAlert(with: "Disclaimer", message: "This chatbot is not affiliated with or endorsed by any real person. The chatbot is powered by artificial intelligence and does not represent the views or opinions of any real person. The chatbot is only intended for entertainment purposes and should not be taken seriously.", on: self)
+            UserDefaults.standard.set(true, forKey: "alertShown")
+            alertShown = true
+        }
         
         chatBot = Sender(senderId: currentBotName, displayName: currentBotName)
         
@@ -43,6 +54,10 @@ class ChatViewController: MessagesViewController {
         // Make the messages appear.
         
 //        apiManager.chat(with: "Steve Jobs", message: "What is your perspective on Google Pixel phones?")
+    }
+    
+    @objc func dismissAlert() {
+        botAlert.dismissAlert()
     }
 
 

@@ -7,5 +7,6 @@ target 'Starstruck' do
 
   # Pods for Starstruck
   pod 'MessageKit'
+  pod 'FirebaseAnalytics'
 
 end
