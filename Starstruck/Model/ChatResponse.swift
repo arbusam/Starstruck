@@ -12,7 +12,7 @@ struct ChatResponse: Codable {
     let object: String
     let created: Int
     let model: String
-    let choices: [Choice]
+    let choices: [Choice]?
     let usage: Usage
 }
 
@@ -29,7 +29,7 @@ struct Choice: Codable {
 
 struct Message: Codable {
     let role: String
-    let content: String
+    let content: String?
 }
 
 struct Usage: Codable {

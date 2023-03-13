@@ -22,6 +22,7 @@ class ChatViewController: MessagesViewController {
     var chatBot: Sender? = nil
     
     let botAlert = BotAlert()
+    private var loading = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +51,26 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDisplayDelegate = self
         
         messageInputBar.delegate = self
+        let button = UIButton()
+        let image = UIImage(systemName: "eraser.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25))
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        messageInputBar.leftStackView.addArrangedSubview(button)
+        messageInputBar.setLeftStackViewWidthConstant(to: 40, animated: false)
         
         // Make the messages appear.
         
 //        apiManager.chat(with: "Steve Jobs", message: "What is your perspective on Google Pixel phones?")
+    }
+    
+    @objc func buttonTapped() {
+        if let bot = chatBot {
+            messages.removeAll()
+            messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date(), kind: .text("Hello, I'm \(currentBotName). How can I help you?")))
+            messagesCollectionView.reloadData()
+        } else {
+            print("Chat bot does not exist")
+        }
     }
     
     @objc func dismissAlert() {
@@ -128,6 +145,22 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
     }
     
+    func removeMessage() {
+      // Check if there are any messages
+      guard !messages.isEmpty else { return }
+      // Remove the last message from the array
+      messages.removeLast()
+      // Update the collection view
+      DispatchQueue.main.async {
+        self.messagesCollectionView.performBatchUpdates({
+          self.messagesCollectionView.deleteSections([messages.count])
+          if messages.count >= 1 {
+            self.messagesCollectionView.reloadSections([messages.count - 1])
+          }
+        }, completion: nil)
+      }
+    }
+    
     func isLastSectionVisible() -> Bool {
         guard !messages.isEmpty else { return false }
 
@@ -137,8 +170,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        if loading { return }
         setTypingIndicatorViewHidden(false, animated: true)
         inputBar.inputTextView.text = String()
+        inputBar.sendButton.startAnimating()
+        loading = true
         addMessage(text, as: currentSender() as! Sender)
         // Send the message to the API
         var myMessages = [MyMessage]()
@@ -149,9 +185,24 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
         
         APIManager().chat(with: currentBotName, messages: myMessages, user: currentSender() as! Sender, chatBot: chatBot!, finished: {text in
+            if text == "###FAILED###" {
+                DispatchQueue.main.async {
+                    self.setTypingIndicatorViewHidden(true, animated: true)
+                    inputBar.sendButton.stopAnimating()
+                    self.loading = false
+                    self.removeMessage()
+                    let alert = UIAlertController(title: "Error", message: "There was an error sending your last message. Please try again", preferredStyle: .alert)
+                    let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+                    alert.addAction(dismissAction)
+                    self.present(alert, animated: true)
+                }
+                return
+            }
             self.addMessage(text, as: self.chatBot!)
             DispatchQueue.main.async {
                 self.setTypingIndicatorViewHidden(true, animated: true)
+                inputBar.sendButton.stopAnimating()
+                self.loading = false
             }
         })
     }
@@ -159,6 +210,16 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 
 extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return message.sender.senderId == currentSender().senderId ? UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1) : UIColor(red: 230/255, green: 230/255, blue: 232/255, alpha: 1)
+        if message.sender.senderId == currentSender().senderId {
+            return UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)
+        } else if UITraitCollection.current.userInterfaceStyle == .dark {
+            return UIColor(red: 52/255, green: 52/255, blue: 53/255, alpha: 1)
+        } else {
+            return UIColor(red: 230/255, green: 230/255, blue: 232/255, alpha: 1)
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        messagesCollectionView.reloadData()
     }
 }

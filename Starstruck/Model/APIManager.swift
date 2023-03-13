@@ -7,15 +7,24 @@
 
 import Foundation
 import MessageKit
+import FirebaseAnalytics
 
 struct APIManager {
     let baseURL = "https://api.openai.com/v1/chat/completions"
     
-    func chat(with star: String, messages: [MyMessage], user: Sender, chatBot: Sender, finished: @escaping (String) -> Void) {
+    func chat(with bot: String, messages: [MyMessage], user: Sender, chatBot: Sender, finished: @escaping (String) -> Void) {
+        Analytics.logEvent("bot_triggered", parameters: [
+            "bot": bot as NSObject,
+            "conversation_count": messages.count as NSObject
+        ])
+        let date = Date() // current date
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d'st' yyyy"
+        let dateString = formatter.string(from: date) // result is "March 12th 2023"
         var textMessages: [[String: String]] = [
             [
                 "role": "system",
-                "content": "You are \(star) answering interview questions. Imitate how they would speak, their mannerisms and the opinions they would have."
+                "content": "You are \(bot) having a chat with the user on a messaging app. Imitate how \(bot) would speak, their mannerisms and the opinions they would have. Knowledge cutoff: September 9th 2021 Current date: \(dateString)."
             ]
         ] //An array of dictionaries that would contain first the role of the message and then the text inside the content key
         for message in messages {
@@ -72,27 +81,42 @@ struct APIManager {
                 do {
                     let result = try JSONDecoder().decode(ChatResponse.self, from: data)
                     print(result)
-                    finished(result.choices[0].message.content)
+                    if let choices = result.choices {
+                        if let content = choices[0].message.content {
+                            finished(content)
+                        } else {
+                            finished("###FAILED###")
+                        }
+                    } else {
+                        print("ERROR: Choices was blank.")
+                        finished("###FAILED###")
+                    }
                 } catch let decodingError as DecodingError {
                     switch decodingError {
                         case .dataCorrupted(let context):
                             print("Data Corrupted")
                             print(context)
+                            finished("###FAILED###")
                         case .keyNotFound(let key, let context):
                             print("Key '\(key)' not found:", context.debugDescription)
                             print("codingPath:", context.codingPath)
+                            finished("###FAILED###")
                         case .valueNotFound(let value, let context):
                             print("Value '\(value)' not found:", context.debugDescription)
                             print("codingPath:", context.codingPath)
+                            finished("###FAILED###")
                         case .typeMismatch(let type, let context):
                             print("Type '\(type)' mismatch:", context.debugDescription)
                             print("codingPath:", context.codingPath)
+                            finished("###FAILED###")
                     @unknown default:
                         print("Unknown decoding error")
+                        finished("###FAILED###")
                     }
                 } catch let error {
                     print("Non DecodingError when Decoding")
                     print(error.localizedDescription)
+                    finished("###FAILED###")
                 }
             }
         }

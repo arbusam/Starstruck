@@ -30,7 +30,13 @@
                             <constraint firstItem="AWr-ez-xcC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pVU-sT-XMU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Starstruck" id="nhl-Sd-VOg"/>
+                    <navigationItem key="navigationItem" title="Starstruck" id="nhl-Sd-VOg">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aaS-0a-1JG">
+                            <connections>
+                                <action selector="addButtonClicked:" destination="BYZ-38-t0r" id="o31-EX-BmL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="AWr-ez-xcC" id="37t-Ye-4oQ"/>
                     </connections>
