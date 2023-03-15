@@ -23,6 +23,7 @@ class ChatViewController: MessagesViewController {
     
     let botAlert = BotAlert()
     private var loading = false
+    private var fails = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,6 +170,38 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         return messagesCollectionView.indexPathsForVisibleItems.contains(lastIndexPath)
     }
     
+    private func sendMessage(_ myMessages: [MyMessage], _ inputBar: InputBarAccessoryView) {
+        APIManager().chat(with: currentBotName, messages: myMessages, user: currentSender() as! Sender, chatBot: chatBot!, finished: {text in
+            if text == "###FAILED###" {
+                if self.fails >= 3 {
+                    DispatchQueue.main.async {
+                        self.setTypingIndicatorViewHidden(true, animated: true)
+                        inputBar.sendButton.stopAnimating()
+                        self.loading = false
+                        self.removeMessage()
+                        let alert = UIAlertController(title: "Error", message: "There was an error sending your last message. Please check your network connection and try again. If this issue persists please send feedback to ab.apphelp@gmail.com", preferredStyle: .alert)
+                        let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+                        alert.addAction(dismissAction)
+                        self.present(alert, animated: true)
+                        self.fails = 0
+                    }
+                    return
+                }
+                sleep(2)
+                self.fails += 1
+                self.sendMessage(myMessages, inputBar)
+                return
+            }
+            self.addMessage(text, as: self.chatBot!)
+            DispatchQueue.main.async {
+                self.setTypingIndicatorViewHidden(true, animated: true)
+                inputBar.sendButton.stopAnimating()
+                self.loading = false
+                self.fails = 0
+            }
+        })
+    }
+    
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         if loading { return }
         setTypingIndicatorViewHidden(false, animated: true)
@@ -184,27 +217,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             }
         }
         
-        APIManager().chat(with: currentBotName, messages: myMessages, user: currentSender() as! Sender, chatBot: chatBot!, finished: {text in
-            if text == "###FAILED###" {
-                DispatchQueue.main.async {
-                    self.setTypingIndicatorViewHidden(true, animated: true)
-                    inputBar.sendButton.stopAnimating()
-                    self.loading = false
-                    self.removeMessage()
-                    let alert = UIAlertController(title: "Error", message: "There was an error sending your last message. Please try again", preferredStyle: .alert)
-                    let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
-                    alert.addAction(dismissAction)
-                    self.present(alert, animated: true)
-                }
-                return
-            }
-            self.addMessage(text, as: self.chatBot!)
-            DispatchQueue.main.async {
-                self.setTypingIndicatorViewHidden(true, animated: true)
-                inputBar.sendButton.stopAnimating()
-                self.loading = false
-            }
-        })
+        sendMessage(myMessages, inputBar)
     }
 }
 

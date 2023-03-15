@@ -74,6 +74,7 @@ struct APIManager {
             if let error = error {
                 print("Error calling the API")
                 print(error.localizedDescription)
+                finished("###FAILED###")
                 return
             }
 
