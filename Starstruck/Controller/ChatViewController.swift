@@ -52,23 +52,31 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDisplayDelegate = self
         
         messageInputBar.delegate = self
-        let button = UIButton()
-        let image = UIImage(systemName: "eraser.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25))
-        button.setImage(image, for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        messageInputBar.leftStackView.addArrangedSubview(button)
+        let button = InputBarButtonItem()
+            .configure { button in
+                let image = UIImage(systemName: "eraser.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+                button.image = image
+                button.setSize(CGSize(width: 30, height: 30), animated: false)
+            }.onSelected {button in
+                self.clearTapped()
+            }
+        messageInputBar.leftStackView.alignment = .center
+        messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
         messageInputBar.setLeftStackViewWidthConstant(to: 40, animated: false)
+//        let label = InputLabelItem(text: "0/5", backgroundColour: UIColor.green.cgColor, frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        reloadMessagesCount()
         
         // Make the messages appear.
         
 //        apiManager.chat(with: "Steve Jobs", message: "What is your perspective on Google Pixel phones?")
     }
     
-    @objc func buttonTapped() {
+    @objc func clearTapped() {
         if let bot = chatBot {
             messages.removeAll()
             messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date(), kind: .text("Hello, I'm \(currentBotName). How can I help you?")))
             messagesCollectionView.reloadData()
+            reloadMessagesCount()
         } else {
             print("Chat bot does not exist")
         }
@@ -128,6 +136,36 @@ extension ChatViewController: MessagesDataSource {
 }
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
+    fileprivate func reloadMessagesCount() {
+        if let countButton = self.messageInputBar.bottomStackView.subviews.first {
+            countButton.removeFromSuperview()
+        }
+        var userMessages = [MyMessage]()
+        for message in messages {
+            if message.sender.senderId == self.currentSender().senderId {
+                userMessages.append(message as! MyMessage)
+            }
+        }
+        let labelButton = InputBarButtonItem()
+            .configure { button in
+                button.setTitle("\(userMessages.count)/5", for: .normal)
+                button.setTitleColor(UIColor.black, for: .normal)
+                if userMessages.count <= 2 {
+                    button.layer.backgroundColor = UIColor.green.cgColor
+                } else if userMessages.count <= 4 {
+                    button.layer.backgroundColor = UIColor.yellow.cgColor
+                } else {
+                    button.layer.backgroundColor = UIColor.red.cgColor
+                }
+                
+                button.layer.cornerRadius = 5
+            }.onSelected {button in
+                self.botAlert.showAlert(with: "Max Messages", message: "You can only send up to 5 messages in one conversation without refreshing it. To refresh a conversation, click on the eraser button.", on: self)
+            }
+        
+        self.messageInputBar.bottomStackView.addArrangedSubview(labelButton)
+    }
+    
     func addMessage(_ text: String, as sender: Sender) {
         let message = MyMessage(sender: sender, messageId: UUID().uuidString, sentDate: Date(), kind: .text(text))
         messages.append(message)
@@ -143,6 +181,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 }
             })
             self.messagesCollectionView.scrollToLastItem(animated: true)
+            self.reloadMessagesCount()
         }
     }
     
@@ -159,6 +198,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             self.messagesCollectionView.reloadSections([messages.count - 1])
           }
         }, completion: nil)
+          if let countButton = self.messageInputBar.bottomStackView.subviews.first {
+              countButton.removeFromSuperview()
+          }
+          
+          self.reloadMessagesCount()
       }
     }
     
@@ -170,7 +214,22 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         return messagesCollectionView.indexPathsForVisibleItems.contains(lastIndexPath)
     }
     
+    func hideKeyboard() {
+        messageInputBar.inputTextView.resignFirstResponder()
+        messageInputBar.inputTextView.endEditing(true)
+    }
+    
     private func sendMessage(_ myMessages: [MyMessage], _ inputBar: InputBarAccessoryView) {
+        var userMessages = [MyMessage]()
+        for message in messages {
+            if message.sender.senderId == self.currentSender().senderId {
+                userMessages.append(message as! MyMessage)
+            }
+        }
+        if userMessages.count >= 6 {
+            botAlert.showAlert(with: "Conversation Limit Reached", message: "You can not send any more messages this conversation as you have reached the conversation limit of 5 messages. Please click the eraser button to reset the conversation and keep sending messages.", on: self)
+            return
+        }
         APIManager().chat(with: currentBotName, messages: myMessages, user: currentSender() as! Sender, chatBot: chatBot!, finished: {text in
             if text == "###FAILED###" {
                 if self.fails >= 3 {

@@ -32,7 +32,9 @@ class BotAlert {
     private var vc: ChatViewController?
     
     func showAlert(with title: String, message: String, on viewController: ChatViewController) {
+        viewController.hideKeyboard()
         guard let targetView = viewController.view else {
+            print("Returning when showing alert because the target view is null.")
             return
         }
         
@@ -78,18 +80,22 @@ class BotAlert {
     }
     
     @objc func dismissAlert() {
+//        print("Alert dismissing")
         
         guard let targetView = self.targetView else {
+            print("Alert dismissing failed because targetView was null")
             return
         }
         guard let viewController = self.vc else {
+            print("Alert dismissing failed because viewController was null")
             return
         }
-        
+//        print("Alert dismissing starting")
         UIView.animate(withDuration: 0.25, animations: {
             self.alertView.frame = CGRect(x: 40, y: targetView.frame.size.height, width: targetView.frame.size.width-80, height: 300)
         }, completion: { done in
             if done {
+//                print("Alert dismissing done")
                 UIView.animate(withDuration: 0.25, animations: {
                     self.backgroundView.alpha = 0
                     viewController.messageInputBar.alpha = 1

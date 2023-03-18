@@ -31,6 +31,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Starstruck" id="nhl-Sd-VOg">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="basket.fill" catalog="system" id="RcV-gU-qca"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aaS-0a-1JG">
                             <connections>
                                 <action selector="addButtonClicked:" destination="BYZ-38-t0r" id="o31-EX-BmL"/>
@@ -39,11 +40,58 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="AWr-ez-xcC" id="37t-Ye-4oQ"/>
+                        <segue destination="i1U-b2-t3L" kind="show" id="nFX-o3-uTq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1088" y="29"/>
+        </scene>
+        <!--Chat Balance-->
+        <scene sceneID="c7I-6Q-AI7">
+            <objects>
+                <viewController id="i1U-b2-t3L" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="t8s-Iz-LGC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eah-ZG-lJt">
+                                <rect key="frame" x="175" y="416" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chats remaining to use. More chats arrive on:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MF-AX-2dg">
+                                <rect key="frame" x="24" y="445" width="344" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You currently have:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYg-13-hw8">
+                                <rect key="frame" x="123" y="387" width="146" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="December 31st 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciD-Nf-o5k">
+                                <rect key="frame" x="116" y="474" width="160" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lFY-Zm-vyb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Chat Balance" id="Exq-kV-UzP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zjM-jU-LfY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1989" y="29"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TAa-MM-1nO">
@@ -65,6 +113,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="basket.fill" catalog="system" width="128" height="108"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
