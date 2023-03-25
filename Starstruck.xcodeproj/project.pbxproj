@@ -18,6 +18,7 @@
 		F8199CC129B9DE6000DFF9BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8199CBF29B9DE6000DFF9BB /* Main.storyboard */; };
 		F830368929B9E1780025E2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F830368829B9E1780025E2DD /* Assets.xcassets */; };
 		F8374AD129C301EF00ECA9CE /* InputLabelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8374AD029C301EF00ECA9CE /* InputLabelItem.swift */; };
+		F872B57429CAD6C500ED4850 /* ChatBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F872B57329CAD6C500ED4850 /* ChatBalanceViewController.swift */; };
 		F8AAE46A29BBF63600E0D753 /* BotAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE46929BBF63600E0D753 /* BotAlert.swift */; };
 		F8AAE46C29BC323900E0D753 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8AAE46B29BC323900E0D753 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		F8199CC029B9DE6000DFF9BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F830368829B9E1780025E2DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8374AD029C301EF00ECA9CE /* InputLabelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputLabelItem.swift; sourceTree = "<group>"; };
+		F872B57329CAD6C500ED4850 /* ChatBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBalanceViewController.swift; sourceTree = "<group>"; };
 		F8AAE46929BBF63600E0D753 /* BotAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotAlert.swift; sourceTree = "<group>"; };
 		F8AAE46B29BC323900E0D753 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 			children = (
 				F811CF1729B9DC34001A7B5C /* ChatViewController.swift */,
 				F811CF1829B9DC34001A7B5C /* SelectStarViewController.swift */,
+				F872B57329CAD6C500ED4850 /* ChatBalanceViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F811CEFF29B9DBCE001A7B5C /* AppDelegate.swift in Sources */,
+				F872B57429CAD6C500ED4850 /* ChatBalanceViewController.swift in Sources */,
 				F811CF2129B9DC34001A7B5C /* ChatViewController.swift in Sources */,
 				F811CF2629B9DC34001A7B5C /* ChatResponse.swift in Sources */,
 				F811CF2529B9DC34001A7B5C /* APIManager.swift in Sources */,

@@ -11,11 +11,33 @@ import FirebaseCore
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        if defaults.integer(forKey: "balance") == 0 {
+            defaults.set(501, forKey: "balance")
+            
+            let currentDate = Date()
+            let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: currentDate)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.string(from: oneMonthFromNow!)
+            defaults.set(dateString, forKey: "renewalDate")
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if dateFormatter.date(from: defaults.string(forKey: "renewalDate")!)! < Date() {
+            defaults.set(defaults.integer(forKey: "balance")+51, forKey: "balance")
+            
+            let currentDate = Date()
+            let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: currentDate)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.string(from: oneMonthFromNow!)
+            defaults.set(dateString, forKey: "renewalDate")
+        }
         return true
     }
 

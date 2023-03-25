@@ -136,7 +136,7 @@ extension ChatViewController: MessagesDataSource {
 }
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
-    fileprivate func reloadMessagesCount() {
+    private func reloadMessagesCount() {
         if let countButton = self.messageInputBar.bottomStackView.subviews.first {
             countButton.removeFromSuperview()
         }
@@ -220,16 +220,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
     
     private func sendMessage(_ myMessages: [MyMessage], _ inputBar: InputBarAccessoryView) {
-        var userMessages = [MyMessage]()
-        for message in messages {
-            if message.sender.senderId == self.currentSender().senderId {
-                userMessages.append(message as! MyMessage)
-            }
-        }
-        if userMessages.count >= 6 {
-            botAlert.showAlert(with: "Conversation Limit Reached", message: "You can not send any more messages this conversation as you have reached the conversation limit of 5 messages. Please click the eraser button to reset the conversation and keep sending messages.", on: self)
-            return
-        }
         APIManager().chat(with: currentBotName, messages: myMessages, user: currentSender() as! Sender, chatBot: chatBot!, finished: {text in
             if text == "###FAILED###" {
                 if self.fails >= 3 {
@@ -252,6 +242,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 return
             }
             self.addMessage(text, as: self.chatBot!)
+            UserDefaults.standard.set(UserDefaults.standard.integer(forKey: "balance")-1, forKey: "balance")
             DispatchQueue.main.async {
                 self.setTypingIndicatorViewHidden(true, animated: true)
                 inputBar.sendButton.stopAnimating()
@@ -263,6 +254,24 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         if loading { return }
+        if UserDefaults.standard.integer(forKey: "balance") <= 1 {
+            botAlert.showAlert(with: "Chat Limit Reached", message: "You can not send any more messages as you have used all your chats. You will receive more on \(UserDefaults.standard.string(forKey: "renewalDate")!).", on: self)
+            return
+        }
+        var userMessages = [MyMessage]()
+        for message in messages {
+            if message.sender.senderId == self.currentSender().senderId {
+                userMessages.append(message as! MyMessage)
+            }
+        }
+        if userMessages.count >= 5 {
+            botAlert.showAlert(with: "Conversation Limit Reached", message: "You can not send any more messages this conversation as you have reached the conversation limit of 5 messages. Please click the eraser button to reset the conversation and keep sending messages.", on: self)
+            return
+        }
+        if text.count > 500 {
+            botAlert.showAlert(with: "Message Too Long", message: "This app is meant for short questions. To avoid spam, we don't allow messages over 500 characters, which yours is. Please shorten your message to less than 500 characters and send it again.", on: self)
+            return
+        }
         setTypingIndicatorViewHidden(false, animated: true)
         inputBar.inputTextView.text = String()
         inputBar.sendButton.startAnimating()
