@@ -8,5 +8,6 @@ target 'Starstruck' do
   # Pods for Starstruck
   pod 'MessageKit'
   pod 'FirebaseAnalytics'
-
+  pod 'FirebaseRemoteConfig'
+  pod 'FirebaseMessaging'
 end

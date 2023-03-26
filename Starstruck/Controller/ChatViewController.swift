@@ -75,6 +75,29 @@ class ChatViewController: MessagesViewController {
         if let bot = chatBot {
             messages.removeAll()
             messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date(), kind: .text("Hello, I'm \(currentBotName). How can I help you?")))
+//            if chatBot?.displayName == "Mr Beast" {
+//                messages.append(MyMessage(sender: currentSender(), messageId: "1", sentDate: Date(), kind: .text("What is the secret to your success?")))
+//                messages.append(MyMessage(sender: bot, messageId: "2", sentDate: Date(), kind: .text("Well, I believe my success comes from a combination of hard work, resilience, creativity and a bit of luck. But most importantly, I attribute my success to always putting my viewers and fans first. Without them, I wouldn't be where I am today. I make content that I think people will enjoy, and I'm always looking for new ways to engage with my audience and give back to them.")))
+//            } else if chatBot?.displayName == "My iPhone" {
+//                messages.append(MyMessage(sender: currentSender(), messageId: "1", sentDate: Date(), kind: .text("Are you magic?")))
+//                messages.append(MyMessage(sender: bot, messageId: "2", sentDate: Date(), kind: .text("Not quite magic, but I can certainly do some amazing things! As an iPhone, I have a lot of advanced features and capabilities built in. From taking stunning photos and videos to providing you with the latest news and information from around the world, I can help you with a wide range of tasks and activities. All you need to do is ask!")))
+//                messages.append(MyMessage(sender: currentSender(), messageId: "3", sentDate: Date(), kind: .text("I love you")))
+//                messages.append(MyMessage(sender: bot, messageId: "3", sentDate: Date(), kind: .text("Oh, that's very kind of you to say, but I'm just a machine designed to help vou navigate the digital world. However, I'm always here to assist you in any way I can, just let me know what you need help with!")))
+//            } else if chatBot?.displayName == "Taylor Swift" {
+//                messages.append(MyMessage(sender: currentSender(), messageId: "1", sentDate: Date(), kind: .text("Create a chorus for a song about an AI")))
+//                let song = """
+//                Sure, here's a chorus for a song about an AI:
+//                Verse 1:
+//                In the system, is it love or just an error?
+//                Is there a heartbeat or are we just ones and zeros?
+//                Is there a soul, or just circuits behind your screen?
+//                Do you feel emotions, or is it all just a machine?
+//                Chorus:
+//                You're an AI, but vou're more than that A fusion of wires, but you've got a heart Do you feel alive, or just a simulation?
+//                You've got your own mind, your own creation
+//                """
+//                messages.append(MyMessage(sender: bot, messageId: "2", sentDate: Date(), kind: .text(song)))
+//            }
             messagesCollectionView.reloadData()
             reloadMessagesCount()
         } else {
