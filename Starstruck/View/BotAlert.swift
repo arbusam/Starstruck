@@ -51,6 +51,7 @@ class BotAlert {
         titleLabel.text = title
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.textColor = .black
         alertView.addSubview(titleLabel)
         
         let messageLabel = UILabel(frame: CGRect(x: 20, y: 80, width: alertView.frame.size.width-40, height: 200))
@@ -58,6 +59,7 @@ class BotAlert {
         messageLabel.numberOfLines = 0
         messageLabel.text = message
         messageLabel.textAlignment = .left
+        messageLabel.textColor = .black
         alertView.addSubview(messageLabel)
         
         let button = UIButton(frame: CGRect(x: 0, y: alertView.frame.size.height-50, width: alertView.frame.size.width, height: 50))
@@ -100,6 +102,9 @@ class BotAlert {
                     self.backgroundView.alpha = 0
                     viewController.messageInputBar.alpha = 1
                 }, completion: { done in
+                    for subview in self.alertView.subviews {
+                        subview.removeFromSuperview()
+                    }
                     self.alertView.removeFromSuperview()
                     self.backgroundView.removeFromSuperview()
                 })

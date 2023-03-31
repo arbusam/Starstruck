@@ -54,7 +54,12 @@ class ChatViewController: MessagesViewController {
         messageInputBar.delegate = self
         let button = InputBarButtonItem()
             .configure { button in
-                let image = UIImage(systemName: "eraser.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+                let image: UIImage?
+                if #available(iOS 16.0, *) {
+                    image = UIImage(systemName: "eraser.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+                } else {
+                    image = UIImage(systemName: "clear.fill")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+                }
                 button.image = image
                 button.setSize(CGSize(width: 30, height: 30), animated: false)
             }.onSelected {button in
@@ -144,7 +149,12 @@ extension ChatViewController: MessagesDataSource {
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         if message.sender.senderId == currentSender().senderId {
-            let image: UIImage? = UIImage(systemName: "person.circle")?.withConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)))
+            let image: UIImage?
+            if #available(iOS 15.0, *) {
+                image = UIImage(systemName: "person.circle")?.withConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)))
+            } else {
+                image = UIImage(systemName: "person.circle")
+            }
             avatarView.set(avatar: Avatar(image: image))
             avatarView.backgroundColor = .clear
         } else if message.sender.senderId == chatBot?.senderId {

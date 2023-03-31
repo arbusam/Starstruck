@@ -31,8 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if dateFormatter.date(from: defaults.string(forKey: "renewalDate")!)! < Date() {
             defaults.set(defaults.integer(forKey: "balance")+51, forKey: "balance")
             
-            let currentDate = Date()
-            let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: currentDate)
+            let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: dateFormatter.date(from: defaults.string(forKey: "renewalDate")!)!)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let dateString = dateFormatter.string(from: oneMonthFromNow!)

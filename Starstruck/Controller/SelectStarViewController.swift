@@ -17,7 +17,6 @@ class SelectStarViewController: UIViewController, UITableViewDelegate, UITableVi
     let defaultStars: [String] = [
         "Steve Jobs",
         "Elon Musk",
-        "Jeff Bezos",
         "Albert Einstein",
         "J.K. Rowling",
         "Mr Beast",
@@ -29,7 +28,6 @@ class SelectStarViewController: UIViewController, UITableViewDelegate, UITableVi
     var stars: [String] = [
         "Steve Jobs",
         "Elon Musk",
-        "Jeff Bezos",
         "Albert Einstein",
         "J.K. Rowling",
         "Mr Beast",
