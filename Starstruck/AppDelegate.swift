@@ -29,11 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         if dateFormatter.date(from: defaults.string(forKey: "renewalDate")!)! < Date() {
-            defaults.set(defaults.integer(forKey: "balance")+51, forKey: "balance")
+            defaults.set(defaults.integer(forKey: "balance")+50, forKey: "balance")
             
-            let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: dateFormatter.date(from: defaults.string(forKey: "renewalDate")!)!)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            var oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: dateFormatter.date(from: defaults.string(forKey: "renewalDate")!)!)
+            while oneMonthFromNow! < Date() {
+                defaults.set(defaults.integer(forKey: "balance")+50, forKey: "balance")
+                oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: oneMonthFromNow!)
+            }
             let dateString = dateFormatter.string(from: oneMonthFromNow!)
             defaults.set(dateString, forKey: "renewalDate")
         }

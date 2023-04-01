@@ -48,6 +48,13 @@ class SelectStarViewController: UIViewController, UITableViewDelegate, UITableVi
         if let starsArray = (self.remoteConfig.configValue(forKey: "stars").jsonValue as? NSArray) {
             if let starsString = starsArray as? [String] {
                 stars = starsString
+                if let customStars = UserDefaults.standard.array(forKey: "customStars") {
+                    for customStar in customStars {
+                        if customStar is String {
+                            stars.append(customStar as! String)
+                        }
+                    }
+                }
             }
         }
         self.tableView.reloadData()
@@ -101,6 +108,31 @@ class SelectStarViewController: UIViewController, UITableViewDelegate, UITableVi
         vc.title = stars[indexPath.row] + " Bot"
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if let customStarCount = UserDefaults.standard.array(forKey: "customStars")?.count {
+            if indexPath.row + 1 <= stars.count - customStarCount {
+                return nil
+            }
+        } else {
+            return nil
+        }
+        
+        let item = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
+            //Delete the row, the element inside of stars and remove it from the UserDefaults custom stars array
+            var customStars = UserDefaults.standard.array(forKey: "customStars") as! [String]
+            customStars.remove(at: indexPath.row - self.stars.count + customStars.count)
+            self.stars.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            UserDefaults.standard.set(customStars, forKey: "customStars")
+        }
+        item.image = UIImage(systemName: "trash.fill")
+
+        let swipeActions = UISwipeActionsConfiguration(actions: [item])
+    
+        return swipeActions
+    }
+    
     @IBAction func addButtonClicked(_ sender: Any) {
         let alert = UIAlertController(title: "Who do you want to add?", message: "Type in the full name of who you want to add. Please ensure spelling and capitalisation are correct. Feel free to add non living things as well but make sure you use a/an before it. DO NOT add anyone or anything who is not recognisable (like your own name)", preferredStyle: .alert)
         alert.addTextField { textField in
@@ -113,6 +145,13 @@ class SelectStarViewController: UIViewController, UITableViewDelegate, UITableVi
             print(alert.textFields![0].text!)
             self.stars.append(alert.textFields![0].text!)
             self.tableView.reloadData()
+            if var customStars = UserDefaults.standard.array(forKey: "customStars") as? [String] {
+                customStars.append(alert.textFields![0].text!)
+                UserDefaults.standard.set(customStars, forKey: "customStars")
+            } else {
+                UserDefaults.standard.set([alert.textFields![0].text], forKey: "customStars")
+            }
+            
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
