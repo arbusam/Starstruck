@@ -28,7 +28,7 @@
 		79FE69432930476364119DDD /* Pods-Starstruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Starstruck.release.xcconfig"; path = "Target Support Files/Pods-Starstruck/Pods-Starstruck.release.xcconfig"; sourceTree = "<group>"; };
 		7E760F8EC1A3CEAE98868060 /* Pods_Starstruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Starstruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F811CEFB29B9DBCE001A7B5C /* Starstruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starstruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F811CEFE29B9DBCE001A7B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; usesTabs = 0; };
 		F811CF0C29B9DBD0001A7B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F811CF1429B9DC2A001A7B5C /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F811CF1729B9DC34001A7B5C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };

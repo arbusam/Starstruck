@@ -10,4 +10,6 @@ target 'Starstruck' do
   pod 'FirebaseAnalytics'
   pod 'FirebaseRemoteConfig'
   pod 'FirebaseMessaging'
+  pod 'FirebaseFirestore'
+  pod 'FirebaseDatabase'
 end

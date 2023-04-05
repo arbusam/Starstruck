@@ -8,6 +8,8 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import FirebaseCore
+import FirebaseDatabase
 
 // Globals
 let sender = Sender(senderId: "self", displayName: "You")
@@ -275,7 +277,33 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 return
             }
             self.addMessage(text, as: self.chatBot!)
-            UserDefaults.standard.set(UserDefaults.standard.integer(forKey: "balance")-1, forKey: "balance")
+            // Check if the UUID exists in the keychain
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: "com.arhanbusam.Starstruck.uuid",
+                kSecAttrAccount as String: "user",
+                kSecReturnAttributes as String: true,
+                kSecReturnData as String: true
+            ]
+
+            var item: CFTypeRef?
+            let status = SecItemCopyMatching(query as CFDictionary, &item)
+            
+            if status == errSecSuccess, let existingItem = item as? [String: Any],
+                let uuidData = existingItem[kSecValueData as String] as? Data,
+                let uuidString = String(data: uuidData, encoding: .utf8) {
+                
+                let ref = Database.database().reference().child("users").child(uuidString).child("chatCount")
+                ref.getData() { error, snapshot in
+                    if error != nil {
+                        print(error!.localizedDescription)
+                    } else {
+                        if let chatCount = snapshot?.value as? Int {
+                            ref.setValue(chatCount-1)
+                        }
+                    }
+                }
+            }
             DispatchQueue.main.async {
                 self.setTypingIndicatorViewHidden(true, animated: true)
                 inputBar.sendButton.stopAnimating()
@@ -287,38 +315,62 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         if loading { return }
-        if UserDefaults.standard.integer(forKey: "balance") <= 1 {
-            botAlert.showAlert(with: "Chat Limit Reached", message: "You can not send any more messages as you have used all your chats. You will receive more on \(UserDefaults.standard.string(forKey: "renewalDate")!).", on: self)
-            return
-        }
-        var userMessages = [MyMessage]()
-        for message in messages {
-            if message.sender.senderId == self.currentSender().senderId {
-                userMessages.append(message as! MyMessage)
-            }
-        }
-        if userMessages.count >= 5 {
-            botAlert.showAlert(with: "Conversation Limit Reached", message: "You can not send any more messages this conversation as you have reached the conversation limit of 5 messages. Please click the eraser button to reset the conversation and keep sending messages.", on: self)
-            return
-        }
-        if text.count > 500 {
-            botAlert.showAlert(with: "Message Too Long", message: "This app is meant for short questions. To avoid spam, we don't allow messages over 500 characters, which yours is. Please shorten your message to less than 500 characters and send it again.", on: self)
-            return
-        }
-        setTypingIndicatorViewHidden(false, animated: true)
-        inputBar.inputTextView.text = String()
-        inputBar.sendButton.startAnimating()
-        loading = true
-        addMessage(text, as: currentSender() as! Sender)
-        // Send the message to the API
-        var myMessages = [MyMessage]()
-        for message in messages {
-            if let myMessage = message as? MyMessage {
-                myMessages.append(myMessage)
-            }
-        }
         
-        sendMessage(myMessages, inputBar)
+        // Check if the UUID exists in the keychain
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "com.arhanbusam.Starstruck.uuid",
+            kSecAttrAccount as String: "user",
+            kSecReturnAttributes as String: true,
+            kSecReturnData as String: true
+        ]
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        
+        if status == errSecSuccess, let existingItem = item as? [String: Any],
+            let uuidData = existingItem[kSecValueData as String] as? Data,
+            let uuidString = String(data: uuidData, encoding: .utf8) {
+                let ref = Database.database().reference().child("users").child(uuidString)
+                
+                ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                    if let value = snapshot.value as? [String: Any], let chatCount = value["chatCount"] as? Int, let renewalDate = value["renewalDate"] as? String {
+                        if chatCount <= 0 {
+                            self.botAlert.showAlert(with: "Chat Limit Reached", message: "You can not send any more messages as you have used all your chats. You will receive more on \(renewalDate).", on: self)
+                            return
+                        }
+                    }
+                
+                    var userMessages = [MyMessage]()
+                    for message in messages {
+                        if message.sender.senderId == self.currentSender().senderId {
+                            userMessages.append(message as! MyMessage)
+                        }
+                    }
+                    if userMessages.count >= 5 {
+                        self.botAlert.showAlert(with: "Conversation Limit Reached", message: "You can not send any more messages this conversation as you have reached the conversation limit of 5 messages. Please click the eraser button to reset the conversation and keep sending messages.", on: self)
+                        return
+                    }
+                    if text.count > 500 {
+                        self.botAlert.showAlert(with: "Message Too Long", message: "This app is meant for short questions. To avoid spam, we don't allow messages over 500 characters, which yours is. Please shorten your message to less than 500 characters and send it again.", on: self)
+                        return
+                    }
+                    self.setTypingIndicatorViewHidden(false, animated: true)
+                    inputBar.inputTextView.text = String()
+                    inputBar.sendButton.startAnimating()
+                    self.loading = true
+                    self.addMessage(text, as: self.currentSender() as! Sender)
+                    // Send the message to the API
+                    var myMessages = [MyMessage]()
+                    for message in messages {
+                        if let myMessage = message as? MyMessage {
+                            myMessages.append(myMessage)
+                        }
+                    }
+                    
+                    self.sendMessage(myMessages, inputBar)
+                })
+        }
     }
 }
 
