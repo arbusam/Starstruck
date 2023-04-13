@@ -12,4 +12,5 @@ target 'Starstruck' do
   pod 'FirebaseMessaging'
   pod 'FirebaseFirestore'
   pod 'FirebaseDatabase'
+  pod 'FirebaseStorage'
 end

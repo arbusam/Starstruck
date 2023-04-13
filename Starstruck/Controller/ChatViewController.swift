@@ -10,12 +10,15 @@ import MessageKit
 import InputBarAccessoryView
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseAnalytics
 
 // Globals
 let sender = Sender(senderId: "self", displayName: "You")
 var messages =  [MessageType]()
 
 var alertShown = UserDefaults.standard.bool(forKey: "alertShown")
+
+//MARK: Messages View Controller
 
 class ChatViewController: MessagesViewController {
     let apiManager = APIManager()
@@ -71,7 +74,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
         messageInputBar.setLeftStackViewWidthConstant(to: 40, animated: false)
 //        let label = InputLabelItem(text: "0/5", backgroundColour: UIColor.green.cgColor, frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        reloadMessagesCount()
+        reloadCounts()
         
         // Make the messages appear.
         
@@ -80,17 +83,29 @@ class ChatViewController: MessagesViewController {
     
     @objc func clearTapped() {
         if let bot = chatBot {
-            messages.removeAll()
-            messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date(), kind: .text("Hello, I'm \(currentBotName). How can I help you?")))
-//            if chatBot?.displayName == "Mr Beast" {
+            let alert = UIAlertController(title: "Clear Chat", message: "Are you sure you want to clear the chat?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                messages.removeAll()
+                messages.append(MyMessage(sender: bot, messageId: "0", sentDate: Date(), kind: .text("Hello, I'm \(self.currentBotName). How can I help you?")))
+                self.messagesCollectionView.reloadData()
+                self.reloadCounts()
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            
+            // --- SCREENSHOT FAKES ---
+            
+//            if bot.displayName == "Mr Beast" {
 //                messages.append(MyMessage(sender: currentSender(), messageId: "1", sentDate: Date(), kind: .text("What is the secret to your success?")))
 //                messages.append(MyMessage(sender: bot, messageId: "2", sentDate: Date(), kind: .text("Well, I believe my success comes from a combination of hard work, resilience, creativity and a bit of luck. But most importantly, I attribute my success to always putting my viewers and fans first. Without them, I wouldn't be where I am today. I make content that I think people will enjoy, and I'm always looking for new ways to engage with my audience and give back to them.")))
-//            } else if chatBot?.displayName == "My iPhone" {
+//                messagesCollectionView.reloadData()
+//            } else if bot.displayName == "My iPhone" {
 //                messages.append(MyMessage(sender: currentSender(), messageId: "1", sentDate: Date(), kind: .text("Are you magic?")))
 //                messages.append(MyMessage(sender: bot, messageId: "2", sentDate: Date(), kind: .text("Not quite magic, but I can certainly do some amazing things! As an iPhone, I have a lot of advanced features and capabilities built in. From taking stunning photos and videos to providing you with the latest news and information from around the world, I can help you with a wide range of tasks and activities. All you need to do is ask!")))
 //                messages.append(MyMessage(sender: currentSender(), messageId: "3", sentDate: Date(), kind: .text("I love you")))
 //                messages.append(MyMessage(sender: bot, messageId: "3", sentDate: Date(), kind: .text("Oh, that's very kind of you to say, but I'm just a machine designed to help vou navigate the digital world. However, I'm always here to assist you in any way I can, just let me know what you need help with!")))
-//            } else if chatBot?.displayName == "Taylor Swift" {
+//                messagesCollectionView.reloadData()
+//            } else if bot.displayName == "Taylor Swift" {
 //                messages.append(MyMessage(sender: currentSender(), messageId: "1", sentDate: Date(), kind: .text("Create a chorus for a song about an AI")))
 //                let song = """
 //                Sure, here's a chorus for a song about an AI:
@@ -104,9 +119,8 @@ class ChatViewController: MessagesViewController {
 //                You've got your own mind, your own creation
 //                """
 //                messages.append(MyMessage(sender: bot, messageId: "2", sentDate: Date(), kind: .text(song)))
+//                messagesCollectionView.reloadData()
 //            }
-            messagesCollectionView.reloadData()
-            reloadMessagesCount()
         } else {
             print("Chat bot does not exist")
         }
@@ -135,6 +149,8 @@ struct MyMessage: MessageType {
     var kind: MessageKit.MessageKind
 }
 
+//MARK: Messages Data Source
+
 extension ChatViewController: MessagesDataSource {
     func currentSender() -> MessageKit.SenderType {
         return sender
@@ -153,14 +169,20 @@ extension ChatViewController: MessagesDataSource {
         if message.sender.senderId == currentSender().senderId {
             let image: UIImage?
             if #available(iOS 15.0, *) {
-                image = UIImage(systemName: "person.circle")?.withConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)))
+                //Old Colour: red: 0, green: 114/255, blue: 248/255, alpha: 1
+                image = UIImage(systemName: "person.circle")?.withConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: UIColor(named: "AccentColor")!))
             } else {
                 image = UIImage(systemName: "person.circle")
             }
             avatarView.set(avatar: Avatar(image: image))
             avatarView.backgroundColor = .clear
         } else if message.sender.senderId == chatBot?.senderId {
-            avatarView.set(avatar: Avatar(image: UIImage(imageLiteralResourceName: "botSymbol")))
+            let localURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(chatBot!.displayName).png")
+            if let image = UIImage(contentsOfFile: localURL.path) {
+                avatarView.set(avatar: Avatar(image: image))
+            } else {
+                avatarView.set(avatar: Avatar(image: UIImage(named: "botSymbol")))
+            }
             avatarView.backgroundColor = UIColor.white
             avatarView.tintColor = UIColor.white
         } else {
@@ -169,6 +191,8 @@ extension ChatViewController: MessagesDataSource {
     }
     
 }
+
+//MARK: Input Bar Accessory View Delegate
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
     private func reloadMessagesCount() {
@@ -181,13 +205,44 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 userMessages.append(message as! MyMessage)
             }
         }
-        let labelButton = InputBarButtonItem()
+        let countButton = UIBarButtonItem(title: "\(userMessages.count)/5", style: .plain, target: self, action: #selector(showMaxMessagesAlert))
+        navigationItem.rightBarButtonItem = countButton
+        
+        // let labelButton = InputBarButtonItem()
+        //     .configure { button in
+        //         button.setTitle("\(userMessages.count)/5", for: .normal)
+        //         button.setTitleColor(UIColor.black, for: .normal)
+        //         if userMessages.count <= 2 {
+        //             button.layer.backgroundColor = UIColor.green.cgColor
+        //         } else if userMessages.count <= 4 {
+        //             button.layer.backgroundColor = UIColor.yellow.cgColor
+        //         } else {
+        //             button.layer.backgroundColor = UIColor.red.cgColor
+        //         }
+                
+        //         button.layer.cornerRadius = 5
+        //     }.onSelected {button in
+        //         self.botAlert.showAlert(with: "Max Messages", message: "You can only send up to 5 messages in one conversation without refreshing it. To refresh a conversation, click on the eraser button.", on: self)
+        //     }
+        // labelButton.setSize(CGSize(width: 175, height: 40), animated: false)
+        // return labelButton
+    }
+    
+    @objc func showMaxMessagesAlert() {
+        botAlert.showAlert(with: "Max Messages", message: "You can only send up to 5 messages in one conversation without refreshing it. To refresh a conversation, click on the eraser button.", on: self)
+    }
+
+    func reloadCharacterCount() -> InputBarButtonItem {
+        if let countLabel = self.messageInputBar.topStackView.subviews.first {
+            countLabel.removeFromSuperview()
+        }
+        let label = InputBarButtonItem()
             .configure { button in
-                button.setTitle("\(userMessages.count)/5", for: .normal)
+                button.setTitle("\(self.messageInputBar.inputTextView.text.count)/200", for: .normal)
                 button.setTitleColor(UIColor.black, for: .normal)
-                if userMessages.count <= 2 {
+                if self.messageInputBar.inputTextView.text.count < 100 {
                     button.layer.backgroundColor = UIColor.green.cgColor
-                } else if userMessages.count <= 4 {
+                } else if self.messageInputBar.inputTextView.text.count < 150 {
                     button.layer.backgroundColor = UIColor.yellow.cgColor
                 } else {
                     button.layer.backgroundColor = UIColor.red.cgColor
@@ -195,10 +250,15 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 
                 button.layer.cornerRadius = 5
             }.onSelected {button in
-                self.botAlert.showAlert(with: "Max Messages", message: "You can only send up to 5 messages in one conversation without refreshing it. To refresh a conversation, click on the eraser button.", on: self)
+                self.botAlert.showAlert(with: "Max Characters", message: "You can only send up to 200 characters in one message. To send a longer message, split it into multiple messages.", on: self)
             }
-        
-        self.messageInputBar.bottomStackView.addArrangedSubview(labelButton)
+        label.setSize(CGSize(width: 175, height: 40), animated: false)
+        return label
+    }
+
+    func reloadCounts() {
+        reloadMessagesCount()
+        self.messageInputBar.setStackViewItems([reloadCharacterCount()], forStack: .bottom, animated: false)
     }
     
     func addMessage(_ text: String, as sender: Sender) {
@@ -216,7 +276,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 }
             })
             self.messagesCollectionView.scrollToLastItem(animated: true)
-            self.reloadMessagesCount()
+            self.reloadCounts()
         }
     }
     
@@ -237,7 +297,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
               countButton.removeFromSuperview()
           }
           
-          self.reloadMessagesCount()
+          self.reloadCounts()
       }
     }
     
@@ -276,6 +336,10 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 self.sendMessage(myMessages, inputBar)
                 return
             }
+            Analytics.logEvent("bot_triggered", parameters: [
+                "bot": self.currentBotName as NSObject,
+                "conversation_count": messages.count as NSObject
+            ])
             self.addMessage(text, as: self.chatBot!)
             // Check if the UUID exists in the keychain
             let query: [String: Any] = [
@@ -311,6 +375,13 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 self.fails = 0
             }
         })
+    }
+
+    func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
+        if text.count > 200 {
+            inputBar.inputTextView.text = String(text.prefix(200))
+        }
+        reloadCounts()
     }
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
@@ -360,6 +431,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                     inputBar.sendButton.startAnimating()
                     self.loading = true
                     self.addMessage(text, as: self.currentSender() as! Sender)
+                    self.reloadCounts()
                     // Send the message to the API
                     var myMessages = [MyMessage]()
                     for message in messages {
@@ -369,15 +441,26 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                     }
                     
                     self.sendMessage(myMessages, inputBar)
-                })
+                }) { error in
+                    print("Error getting snapshot")
+                    self.botAlert.showAlert(with: "Error", message: "An unknown error occured. Check your internet connection and try again.", on: self)
+                    return
+                }
+        } else {
+            print("Error fetching from keychain")
+            self.botAlert.showAlert(with: "Error", message: "An unknown error occured. Check your internet connection and try again.", on: self)
+            return
         }
     }
 }
 
+//MARK: Messages Display Delegate, Messages Layout Delegate
+
 extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         if message.sender.senderId == currentSender().senderId {
-            return UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)
+//            return UIColor(red: 0, green: 114/255, blue: 248/255, alpha: 1)
+            return UIColor(named: "AccentColor")!
         } else if UITraitCollection.current.userInterfaceStyle == .dark {
             return UIColor(red: 52/255, green: 52/255, blue: 53/255, alpha: 1)
         } else {

@@ -36,32 +36,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if status == errSecSuccess, let existingItem = item as? [String: Any],
             let uuidData = existingItem[kSecValueData as String] as? Data,
             let uuidString = String(data: uuidData, encoding: .utf8) {
+            print(uuidString)
             
             // Retrieve the user's chat count from Firebase
             let ref = Database.database().reference().child("users").child(uuidString)
             ref.child("renewalDate").getData() { error, snapshot in
                 guard error == nil else {
                     // Store the new UUID in Firebase
-                    let ref = Database.database().reference().child("users").child(uuidString)
-                    
-                    let currentDate = Date()
-                    let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: currentDate)
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    let dateString = dateFormatter.string(from: oneMonthFromNow!)
-                    ref.child("renewalDate").setValue(dateString)
-                    
-                    var chatCount: Int?
-                    
-                    ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let value = snapshot.value as? [String: Any], let tempChatCount = value["chatCount"] as? Int {
-                            chatCount = tempChatCount
-                        }
-                    })
-                    
-                    if chatCount == nil {
-                        ref.child("chatCount").setValue(500)
-                    }
+//                    let ref = Database.database().reference().child("users").child(uuidString)
+//                    
+//                    let currentDate = Date()
+//                    let oneMonthFromNow = Calendar.current.date(byAdding: .month, value: 1, to: currentDate)
+//                    let dateFormatter = DateFormatter()
+//                    dateFormatter.dateFormat = "yyyy-MM-dd"
+//                    let dateString = dateFormatter.string(from: oneMonthFromNow!)
+//                    ref.child("renewalDate").setValue(dateString)
+//                    
+//                    var chatCount: Int?
+//                    
+//                    ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//                        if let value = snapshot.value as? [String: Any], let tempChatCount = value["chatCount"] as? Int {
+//                            chatCount = tempChatCount
+//                        }
+//                    })
+//                    
+//                    if chatCount == nil {
+//                        ref.child("chatCount").setValue(500)
+//                    }
                     
                     print(error!.localizedDescription)
                     return

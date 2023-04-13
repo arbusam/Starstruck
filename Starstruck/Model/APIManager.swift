@@ -7,16 +7,11 @@
 
 import Foundation
 import MessageKit
-import FirebaseAnalytics
 
 struct APIManager {
     let baseURL = "https://api.openai.com/v1/chat/completions"
     
     func chat(with bot: String, messages: [MyMessage], user: Sender, chatBot: Sender, finished: @escaping (String) -> Void) {
-        Analytics.logEvent("bot_triggered", parameters: [
-            "bot": bot as NSObject,
-            "conversation_count": messages.count as NSObject
-        ])
         let date = Date() // current date
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d'st' yyyy"
@@ -24,7 +19,7 @@ struct APIManager {
         var textMessages: [[String: String]] = [
             [
                 "role": "system",
-                "content": "You are \(bot) having a chat with the user on a messaging app. Imitate how \(bot) would speak, their mannerisms and the opinions they would have. Knowledge cutoff: September 9th 2021 Current date: \(dateString)."
+                "content": "You are \(bot) having a chat with the user on a messaging app. Imitate how \(bot) would speak, their mannerisms and the opinions they would have. Avoid answering questions they wouldn't be able to answer in real life in order to keep up the appearance you are them. Knowledge cutoff: September 9th 2021 Current date: \(dateString)."
             ]
         ] //An array of dictionaries that would contain first the role of the message and then the text inside the content key
         for message in messages {

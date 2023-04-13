@@ -10,10 +10,10 @@ import InputBarAccessoryView
 import QuartzCore
 
 class InputLabelItem: UILabel, InputItem {
-    init(text: String, backgroundColour: CGColor, frame: CGRect) {
+    init(text: String, backgroundColor: CGColor, frame: CGRect) {
         super.init(frame: frame)
         self.text = text
-        self.layer.backgroundColor = backgroundColour
+        self.layer.backgroundColor = backgroundColor
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
     }
